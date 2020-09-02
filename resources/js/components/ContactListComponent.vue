@@ -38,7 +38,7 @@
                                         <button type="button" class="btn btn-primary btn-sm" @click="showModal({...contact})">
                                             Edit
                                         </button>
-                                        <button type="button" class="btn btn-secondary btn-sm" @click="showModal({...contact})">
+                                        <button type="button" class="btn btn-secondary btn-sm" @click="showModal({...contact}, true)">
                                             View
                                         </button>
                                         <button type="button" class="btn btn-danger btn-sm" @click="deleteContact(contact.id)">
@@ -51,7 +51,7 @@
                         </div>
                         <pagination-component :paginator="paginator" @paginate="paginate($event)"/>
 
-                        <contactform-component :contactdata="contactformdata" @contactAdded="onContactAdded()"></contactform-component>
+                        <contactform-component :contactdata="contactformdata" :disabled="modal_disabled" @contactAdded="onContactAdded()"></contactform-component>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,8 @@
                     current_page: 2,
                     last_page: 4
                 },
-                search_data: ''
+                search_data: '',
+                modal_disabled: false
             }
         },
         methods: {
@@ -107,7 +108,7 @@
                 $('#staticBackdrop').modal('hide');
                 this.getContacts();
             },
-            showModal: function (data) {
+            showModal: function (data, disabled = false) {
                 this.contactformdata = (!data) ? {
                     id: null,
                     firstname: '',
@@ -115,6 +116,8 @@
                     email: '',
                     contact_number: ''
                 } : data;
+
+                this.modal_disabled = disabled;
 
                 $('#staticBackdrop').modal('show');
             },

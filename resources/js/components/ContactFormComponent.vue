@@ -11,6 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <fieldset v-bind:disabled="disabled">
                         <div class="form-group">
                             <label for="firstname">Firstname</label>
                             <input type="text" v-model="contactdata.firstname" class="form-control" id="firstname" aria-describedby="Firstname">
@@ -28,11 +29,12 @@
                             <label for="contact">Contact number</label>
                             <input type="text" v-model="contactdata.contact_number" class="form-control" id="contact" aria-describedby="Listname">
                         </div>
+                        </fieldset>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="addContact(contactdata)">Submit</button>
+                    <button type="button" class="btn btn-primary" v-if="disabled === false" @click="addContact(contactdata)">Submit</button>
                 </div>
             </div>
         </div>
@@ -42,7 +44,7 @@
 <script>
     export default {
         name: "ContactFormComponent",
-        props: ['contactdata'],
+        props: ['disabled', 'contactdata'],
         data: ()=> {
             return {
 
