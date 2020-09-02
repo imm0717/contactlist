@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ContactController@index')->name('home');
+Route::get('/contacts', 'ContactController@getAll')->name('contacts');
+Route::post('/contacts', 'ContactController@add')->name('Add contact');
+Route::put('/contacts/{id}', 'ContactController@update')->name('Update contact');
+Route::delete('/contacts/{id}', 'ContactController@delete')->name('Delete contact');
